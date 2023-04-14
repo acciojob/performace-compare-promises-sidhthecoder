@@ -13,8 +13,8 @@ const apiUrls = [
 ];
 
 // You can write your code here
-const fetchData = async (url) => {
-  const response = await fetch(url);
+const fetchData = async (apiUrls) => {
+  const response = await fetch(apiUrls);
   return response.json();
 };
 
