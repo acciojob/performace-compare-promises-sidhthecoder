@@ -13,3 +13,34 @@ const apiUrls = [
 ];
 
 // You can write your code here
+const fetchData = async (url) => {
+  const response = await fetch(url);
+  return response.json();
+};
+
+// Measure the time taken to fetch data using Promise.all
+const measurePromiseAll = async () => {
+  const startTime = performance.now();
+  const promises = apiUrls.map(fetchData);
+  await Promise.all(promises);
+  const endTime = performance.now();
+  return endTime - startTime;
+};
+
+// Measure the time taken to fetch data using Promise.any
+const measurePromiseAny = async () => {
+  const startTime = performance.now();
+  const promises = apiUrls.map(fetchData);
+  await Promise.any(promises);
+  const endTime = performance.now();
+  return endTime - startTime;
+};
+
+// Call the functions and display the results
+measurePromiseAll().then((time) => {
+  document.getElementById('output-all').textContent = `${time} milliseconds`;
+});
+
+measurePromiseAny().then((time) => {
+  document.getElementById('output-any').textContent = `${time} milliseconds`;
+});
